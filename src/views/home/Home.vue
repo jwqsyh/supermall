@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav">
-      <div slot="center">购物车</div>
+      <div slot="center">购物街</div>
     </nav-bar>
 
     <scroll class="content" ref="scroll"
@@ -35,6 +35,7 @@
   import BackTop from "components/content/backTop/BackTop";
 
   import {getHomeMultidata, getHomeGoods} from 'network/home'
+  import {debounce} from 'common/utils'
 
   export default {
     name: "Home",
@@ -73,6 +74,15 @@
       this.getHomeGoods('new')
       //精选
       this.getHomeGoods('sell')
+
+    },
+    mounted() {
+      // 监听GoodsListItem中图片加载完成
+      const refresh = debounce(this.$refs.scroll.refresh,50)
+      this.$bus.$on('ItemImgLoad', () => {
+        // if (this.$refs.scroll != null)
+        refresh()
+      })
     },
     computed: {
       showTitle() {
@@ -105,8 +115,6 @@
       backPullingUp() {
         // console.log('上拉加载更多');
         this.getHomeGoods(this.currentType)
-
-        this.$refs.scroll.scroll.refresh()
       },
 
       /**
