@@ -86,12 +86,12 @@
     activated: function () {
       this.$refs.scroll.scrollTop(0, this.scrollY, 0)
       this.$refs.scroll.refresh()
-      console.log('acticated-------'+this.scrollY);
+      // console.log('acticated-------'+this.scrollY);
 
     },
     deactivated() {
       this.scrollY = this.$refs.scroll.getScrollY()
-      console.log('deacticated------'+this.scrollY);
+      // console.log('deacticated------'+this.scrollY);
     },
     mounted() {
       // 1.监听GoodsListItem中图片加载完成
