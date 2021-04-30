@@ -28,7 +28,7 @@
 
 <style scoped>
   .swiper-item {
-    height: 300px;
+    height: 350px;
     overflow: hidden;
   }
 

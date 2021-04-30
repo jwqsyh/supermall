@@ -11,8 +11,7 @@
             :probe-type="3"
             @scroll="backScroll"
             :pull-up-load="true"
-            @pullingUp="backPullingUp"
-            :class="{fixed: isFixed}">
+            @pullingUp="backPullingUp">
       <home-swiper :banners="banners" @swiperImgLoad="swiperImgLoad"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>

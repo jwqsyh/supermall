@@ -30,8 +30,8 @@
       // 1. 创建BScroll对象
       this.scroll = new BScroll(this.$refs.wrapper, {
         click: true,
-        // observeDOM: true,
-        // mouseWheel: true,
+        observeDOM: true,
+        mouseWheel: true,
         probeType: this.probeType,
         pullUpLoad: this.pullUpLoad
       })
