@@ -52,7 +52,7 @@
       }
     },
     methods: {
-      scrollTop(x, y, time) {
+      scrollTop(x, y, time=200) {
         this.scroll && this.scroll.scrollTo(x, y, time)
       },
       finishPullUp() {

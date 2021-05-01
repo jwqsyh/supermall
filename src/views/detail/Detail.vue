@@ -1,41 +1,49 @@
 <template>
   <div id="detail">
-    <detail-nav-bar></detail-nav-bar>
-    <scroll class="detail-content" ref="scroll"
+    <detail-nav-bar class="detail-nav-bar"></detail-nav-bar>
+    <scroll class="content" ref="scroll"
             :probe-type="3">
       <detail-swiper :top-image="topImage"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
+      <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad"></detail-goods-info>
+      <detail-param-info :param-info="paramInfo"></detail-param-info>
     </scroll>
   </div>
 </template>
 
 <script>
-  import Scroll from "components/common/scroll/Scroll";
-
   import DetailNavBar from "./childComps/DetailNavBar";
   import DetailSwiper from "./childComps/DetailSwiper";
   import DetailBaseInfo from "./childComps/DetailBaseInfo";
   import DetailShopInfo from "./childComps/DetailShopInfo";
+  import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
+  import DetailParamInfo from "./childComps/DetailParamInfo";
 
-  import {getDetail, Goods, Shop} from "network/detail";
+  import Scroll from "components/common/scroll/Scroll";
+
+  import {getDetail, Goods, Shop, GoodsParam} from "network/detail";
 
   export default {
     name: "Detail",
     components: {
-      Scroll,
-
       DetailSwiper,
       DetailNavBar,
       DetailBaseInfo,
-      DetailShopInfo
+      DetailShopInfo,
+      DetailGoodsInfo,
+      DetailParamInfo,
+
+      Scroll
     },
     data() {
       return {
         iid: null,
         topImage: [],
         goods: {},
-        shop: {}
+        shop: {},
+        detailInfo: {},
+        paramInfo: {}
       }
     },
     created() {
@@ -56,20 +64,38 @@
 
         // 3.创建店铺信息的对象
         this.shop = new Shop(data.shopInfo)
+
+        // 4.获取商品详情页数据
+        this.detailInfo = data.detailInfo
+
+        // 5.获取参数信息
+        this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
       })
+    },
+    methods: {
+      imgLoad() {
+        this.$refs.scroll.refresh()
+      }
     }
   }
 </script>
 
 <style scoped>
-  .detail-content {
-    position: absolute;
+  #detail {
+    position: relative;
+    background-color: #fff;
+    z-index: 9;
+    height: 100vh;
+  }
 
-    overflow-y: hidden;
-    top: 44px;
-    bottom: 49px;
-    left: 0;
-    right: 0;
+  .content {
+    height: calc(100% - 44px);
+  }
+
+  .detail-nav-bar {
+    position: relative;
+    z-index: 9;
+    background-color: #fff;
   }
 
 </style>
