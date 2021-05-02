@@ -64,7 +64,7 @@
     color: #eb4868;
   }
 
-  .info-img {
+  .info-img img {
     width: 100%;
   }
 </style>
