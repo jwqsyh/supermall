@@ -43,7 +43,7 @@
         let date = new Date(value * 1000);
 
         // 2.将date进行格式化
-        return formatDate(date, 'yyyy-MM-dd')
+        return formatDate(date, 'yyyy-MM-dd hh:mm')
       }
     }
   }

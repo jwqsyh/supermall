@@ -39,6 +39,7 @@
 
   import {getHomeMultidata, getHomeGoods} from 'network/home'
   import {debounce} from 'common/utils'
+  import {itemImgLentenerMinins} from "common/mixins";
 
   export default {
     name: "Home",
@@ -58,6 +59,7 @@
         scrollY: 0
       }
     },
+    mixins: [itemImgLentenerMinins],
     components: {
       HomeSwiper,
       RecommendView,
@@ -89,18 +91,20 @@
 
     },
     deactivated() {
+      // 获取Y值
       this.scrollY = this.$refs.scroll.getScrollY()
       // console.log('deacticated------'+this.scrollY);
+      this.$bus.$off('ItemImgLoad', this.itemImageLentener)
     },
     mounted() {
       // 1.监听GoodsListItem中图片加载完成
-      const refresh = debounce(this.$refs.scroll.refresh,50)
-      this.$bus.$on('ItemImgLoad', () => {
-        // if (this.$refs.scroll != null)
-        refresh()
-      })
+      // const refresh = debounce(this.$refs.scroll.refresh,50)
+      // this.$bus.$on('ItemImgLoad', () => {
+      //   // if (this.$refs.scroll != null)
+      //   refresh()
+      // })
       // console.log(this.$refs.tabControl.$el.offsetTop);
-
+      console.log('home mounted');
     },
     computed: {
       showTitle() {

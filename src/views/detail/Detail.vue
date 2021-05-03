@@ -9,6 +9,7 @@
       <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad"></detail-goods-info>
       <detail-param-info :param-info="paramInfo"></detail-param-info>
       <detail-comment-info :comment-info="commentInfo"></detail-comment-info>
+      <goods-list :goods="recommends"></goods-list>
     </scroll>
   </div>
 </template>
@@ -23,8 +24,10 @@
   import DetailCommentInfo from "./childComps/DetailCommentInfo";
 
   import Scroll from "components/common/scroll/Scroll";
+  import GoodsList from "components/content/goods/GoodsList";
 
-  import {getDetail, Goods, Shop, GoodsParam} from "network/detail";
+  import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "network/detail";
+  import {itemImgLentenerMinins} from "common/mixins";
 
   export default {
     name: "Detail",
@@ -37,7 +40,8 @@
       DetailParamInfo,
       DetailCommentInfo,
 
-      Scroll
+      Scroll,
+      GoodsList
     },
     data() {
       return {
@@ -47,9 +51,11 @@
         shop: {},
         detailInfo: {},
         paramInfo: {},
-        commentInfo: {}
+        commentInfo: {},
+        recommends: []
       }
     },
+    mixins: [itemImgLentenerMinins],
     created() {
       // 1.保存传入进来的iid
       // console.log(this.$route.params.iid);
@@ -80,6 +86,17 @@
           this.commentInfo = data.rate.list[0]
         }
       })
+
+      // 3.请求推荐数据
+      getRecommend().then(result => {
+        this.recommends = result.data.list
+      })
+    },
+    mounted() {
+      console.log('detail mounted');
+    },
+    destroyed() {
+      this.$bus.$off('ItemImgLoad', this.itemImageLentener)
     },
     methods: {
       imgLoad() {
