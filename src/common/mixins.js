@@ -1,4 +1,5 @@
 import {debounce} from "./utils";
+import BackTop from "components/content/backTop/BackTop";
 
 export const itemImgLentenerMinins = {
   data() {
@@ -12,6 +13,23 @@ export const itemImgLentenerMinins = {
       refresh()
     }
     this.$bus.$on('ItemImgLoad', this.itemImageLentener)
-    console.log('我是混入中的内容');
+    // console.log('我是混入中的内容');
   }
 }
+
+export const backTopMixin = {
+  data() {
+    return {
+      isShowBackTop: false
+    }
+  },
+  components: {
+    BackTop
+  },
+  methods: {
+    backClick() {
+      this.$refs.scroll.scrollTop(0, 0,)
+    }
+  }
+}
+

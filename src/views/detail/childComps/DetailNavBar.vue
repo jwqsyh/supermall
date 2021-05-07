@@ -1,3 +1,4 @@
+<!-- 顶部导航组件 -->
 <template>
   <div>
     <nav-bar>
@@ -32,6 +33,7 @@
     methods: {
       titleClick(index) {
         this.currentIndex = index
+        this.$emit('titleClick', index)
       },
       backClick() {
         this.$router.back()

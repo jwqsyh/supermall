@@ -1,3 +1,4 @@
+<!-- 评论信息组件 -->
 <template>
   <div v-if="Object.keys(commentInfo).length !== 0" class="comment-info">
     <div class="info-header">

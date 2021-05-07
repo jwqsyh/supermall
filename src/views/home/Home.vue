@@ -21,7 +21,7 @@
       <goods-list :goods="showTitle"></goods-list>
     </scroll>
 
-    <back-top @click.native="backClick" v-show="isShow"></back-top>
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
 
   </div>
 </template>
@@ -35,11 +35,10 @@
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from "components/common/scroll/Scroll";
-  import BackTop from "components/content/backTop/BackTop";
 
   import {getHomeMultidata, getHomeGoods} from 'network/home'
-  import {debounce} from 'common/utils'
-  import {itemImgLentenerMinins} from "common/mixins";
+  // import {debounce} from 'common/utils'
+  import {itemImgLentenerMinins, backTopMixin} from "common/mixins";
 
   export default {
     name: "Home",
@@ -53,13 +52,12 @@
           'sell': {page: 0, list: []}
         },
         currentType: 'pop',
-        isShow: false,
         tabOffsetTop: 0,
         isFixed: false,
         scrollY: 0
       }
     },
-    mixins: [itemImgLentenerMinins],
+    mixins: [itemImgLentenerMinins, backTopMixin],
     components: {
       HomeSwiper,
       RecommendView,
@@ -68,8 +66,7 @@
       NavBar,
       TabControl,
       GoodsList,
-      Scroll,
-      BackTop
+      Scroll
     },
     created() {
       // 1.请求多个数据
@@ -104,7 +101,7 @@
       //   refresh()
       // })
       // console.log(this.$refs.tabControl.$el.offsetTop);
-      console.log('home mounted');
+      // console.log('home mounted');
     },
     computed: {
       showTitle() {
@@ -129,13 +126,13 @@
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
       },
-      backClick() {
-        this.$refs.scroll.scrollTop(0, 0)
-      },
+      // backClick() {
+      //   this.$refs.scroll.scrollTop(0, 0)
+      // },
       backScroll(position) {
         // console.log(position);
         // 1.判断BackTop是否显示
-        this.isShow = (-position.y) > 1000
+        this.isShowBackTop = (-position.y) > 1000
 
         // 2.决定tabControl是否吸顶(position:fiexd)
         this.isFixed = (-position.y) > this.tabOffsetTop
