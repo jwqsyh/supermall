@@ -5,6 +5,11 @@
     <scroll class="content" ref="scroll"
             :probe-type="3"
             @scroll="navBarScroll">
+<!--      <ul>-->
+<!--        <li v-for="item in $store.state.cartList">-->
+<!--          {{item}}-->
+<!--        </li>-->
+<!--      </ul>-->
       <detail-swiper :top-image="topImage"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -13,7 +18,7 @@
       <detail-comment-info :comment-info="commentInfo" ref="commentInfo"></detail-comment-info>
       <goods-list :goods="recommends" ref="recommendInfo"></goods-list>
     </scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @clickToCart="clickToCart"></detail-bottom-bar>
     <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
@@ -75,7 +80,7 @@
       // 2.根据iid获取商品详情数据
       getDetail(this.iid).then(result => {
         // 1.获取轮播图图片数据
-        // console.log(result);
+        console.log(result);
         const data = result.result
         this.topImage = result.result.itemInfo.topImages
         // console.log(this.topImage);
@@ -149,6 +154,19 @@
 
         // 判断是否显示backTop
         this.isShowBackTop = (-position.y) > 1000
+      },
+      clickToCart() {
+        // 1.获取购物车需要展示的信息
+        const productList = {}
+        productList.image = this.topImage[0]
+        productList.desc = this.goods.desc
+        productList.title = this.goods.title
+        productList.price = this.goods.realPrice
+        productList.iid = this.iid
+
+        // 2.将商品添加到购物车中
+        // this.$store.commit('addCart', productList)
+        this.$store.dispatch('addCart', productList)
       }
     }
   }
