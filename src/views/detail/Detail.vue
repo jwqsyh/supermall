@@ -182,6 +182,7 @@
 
   .content {
     height: calc(100% - 44px - 49px);
+    overflow: hidden;
   }
 
   .detail-nav-bar {
