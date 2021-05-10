@@ -4,7 +4,7 @@
     <nav-bar class="nav-bar">
       <div slot="center">购物车({{cartGetLength}})</div>
     </nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <cart-list></cart-list>
     </scroll>
   </div>
@@ -28,6 +28,9 @@
     },
     computed: {
       ...mapGetters(['cartGetLength'])
+    },
+    activated() {
+      this.$refs.scroll.refresh()
     }
   }
 </script>

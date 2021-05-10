@@ -2,7 +2,7 @@
   <div class="cart-list">
     <cart-list-item v-for="(item,index) in cartGetList"
                     :key="index"
-                    :product="item"></cart-list-item>
+                    :productList="item"></cart-list-item>
 <!--    li{内容}*150-->
   </div>
 </template>
