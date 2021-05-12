@@ -40,6 +40,8 @@
   import {itemImgLentenerMinins, backTopMixin} from "common/mixins";
   import {debounce} from "../../common/utils";
 
+  import {mapActions} from 'vuex'
+
   export default {
     name: "Detail",
     components: {
@@ -124,6 +126,7 @@
       this.$bus.$off('ItemImgLoad', this.itemImageLentener)
     },
     methods: {
+      ...mapActions(['addCart']),
       imgLoad() {
         this.$refs.scroll.refresh()
         this.navBarDebounce()
@@ -166,7 +169,12 @@
 
         // 2.将商品添加到购物车中
         // this.$store.commit('addCart', productList)
-        this.$store.dispatch('addCart', productList)
+        this.addCart(productList).then(res => {
+          console.log(res);
+        })
+        // this.$store.dispatch('addCart', productList).then(res => {
+        //   console.log(res);
+        // })
       }
     }
   }
