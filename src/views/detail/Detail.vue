@@ -5,11 +5,6 @@
     <scroll class="content" ref="scroll"
             :probe-type="3"
             @scroll="navBarScroll">
-<!--      <ul>-->
-<!--        <li v-for="item in $store.state.cartList">-->
-<!--          {{item}}-->
-<!--        </li>-->
-<!--      </ul>-->
       <detail-swiper :top-image="topImage"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -35,6 +30,7 @@
 
   import Scroll from "components/common/scroll/Scroll";
   import GoodsList from "components/content/goods/GoodsList";
+  import Toast from "components/common/toast/Toast";
 
   import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "network/detail";
   import {itemImgLentenerMinins, backTopMixin} from "common/mixins";
@@ -55,7 +51,8 @@
       DetailBottomBar,
 
       Scroll,
-      GoodsList
+      GoodsList,
+      Toast
     },
     data() {
       return {
@@ -70,7 +67,6 @@
         navBarLocation: [],
         navBarDebounce: null,
         currentIndex: 0,
-        // isShowBackTop: false
       }
     },
     mixins: [itemImgLentenerMinins,backTopMixin],
@@ -170,7 +166,14 @@
         // 2.将商品添加到购物车中
         // this.$store.commit('addCart', productList)
         this.addCart(productList).then(res => {
-          console.log(res);
+          // this.message = res
+          // this.show = true
+          //
+          // setTimeout(() => {
+          //   this.show = false
+          //   this.message = ''
+          // }, 2000)
+          this.$toast.show(res)
         })
         // this.$store.dispatch('addCart', productList).then(res => {
         //   console.log(res);

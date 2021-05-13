@@ -21,7 +21,7 @@ export default {
         payload.count = 1
         // context.state.cartList.push(payload)
         context.commit(ADD_PUSH_CART, payload)
-        resolve('添加购物车成功！')
+        resolve('加入购物车成功')
       }
     })
   }

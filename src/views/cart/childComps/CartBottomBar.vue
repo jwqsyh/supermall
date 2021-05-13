@@ -9,7 +9,7 @@
     <div class="center-price">
       合计：{{totalPrice}}
     </div>
-    <div class="right-price">
+    <div class="right-price" @click="addToBuy">
       去结算({{checkLength}})
     </div>
   </div>
@@ -61,6 +61,11 @@
           this.cartGetList.forEach(item => item.checked = false)
         } else {
           this.cartGetList.forEach(item => item.checked = true)
+        }
+      },
+      addToBuy() {
+        if (!this.cartListCheck) {
+          this.$toast.show('您还没有选择商品哦')
         }
       }
     }
